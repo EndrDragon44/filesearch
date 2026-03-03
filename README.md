@@ -1,129 +1,112 @@
-# File Search Application
+# Filesearch
 
 This is a command-line file search application originally written in C, now written with Rust. The application searches for a specified filename or subdirectory in a directory and all its subdirectories and provides a list of matching files or subdirectories. It supports threading, logfiles, wildcards, case-sensitivity, and more.
 
-### OS Support
-#### Windows
-- [x] 64 bit
-- [x] 32 bit
-- [x] ARM64
 
-#### Linux
-- [x] 64 bit
-- [x] 32 bit
-- [x] ARM64
+## Credits: 
+-  GitHub: @nreef12 for building the ARM64 version for macOS
+-  Friend: @caden_tm for opening the doors to Intel macOS
 
-#### macOS
-- [x] 64 bit
-- [ ] ARM64 (M-series)
+## Compatibility
+![ScreenshotsStacked](https://github.com/user-attachments/assets/bc279ff5-a4dd-4819-9fb1-cc58186152e0)
+<div align=center>
 
-More support will need contributors, see the section below!
+|OS  | 64-bit | 32-bit | ARM64 |
+|-|-|-|-|
+|Windows|Yes|Yes|Yes
+|macOS|Yes (Intel)|Not Planned|Yes (Silicon)|
+|Linux|Yes |Yes|Yes
+
+</div>
+
+Windows, macOS and Linux each have their very own version of Filesearch - not to mention it's also built for different CPU architectures, too! So whether you're using Windows 7 on a 32-bit CPU, macOS 26 on a M5 Mac Mini, or Damn Small Linux on a MacBook Pro from 2009, it'll run.
+
+The minimum version of Windows needed to run either the 32-bit or 64-bit is Windows 7 SP1. I am actively working on fixing that and will update the existing files silently. You'll know because this message will be gone - you aren't seeing things... or are you? :) I am—
 
 
 ## Features
+- Threading
+- Logging
+- Wildcards
+- File searching
+- Subdirectory searching
+- Switch between two search patterns (BFS / DFS)
+- Case-sensitivity
 
-- Search for a specific file or subdirectory in a directory and its subdirectories.
-- Display the paths of all matching files or subdirectories.
-- Option to continue searching for more matching files or subdirectories.
-- Cross-platform compatibility (Windows, Linux, and macOS).
+## Usage
+To demonstrate how simple it is to use this, I came up with 12 examples in four groups of complexity:
 
-## Installation and Usage
+1. Rush — on-the-go
+- filesearch /fm x.py
+- filesearch -f favicon.png ./www
+- filesearch -d *.app /Applications
+2. Simple — productivity
+- filesearch /FM *.pptx C:\\Users\\Randell\\OneDrive\\Documents
+- filesearch --files income-2023-*.ods
+- filesearch --folders wiki /home/server_user/git/www/ --log ~/current-wikis.log
+3. Specific — you know what you want
+- filesearch /FM recording-??-??-2004.avi /mnt/nas-backups/pre2005/camcorder/Vacations/Germany
+- filesearch -f rufus-?-??p.exe ..\Downloads
+- filesearch  -f ??-??-1996_stevie+chris.mp? B:\\pre2005\\camcorder\\mixed-graduations
+4. Forgetful — you forget 80% of what you want
+- filesearch -d * C:\\Users\\
+- filesearch /FM *-stable.tar.gz .
+- filesearch /FM dirent.h /.
 
-### Windows:
 
-1. Download the version you want for Windows from the [releases](https://github.com/EndrDragon44/FileSearch/releases) page.
+## Installation
+Installation is simple. You copy the binary you download to somewhere in your PATH. This could be a custom folder you _add_ to PATH yourself, or a system folder for executables. I prefer the latter myself. Heres how to do it:
+### Linux
+On Linux it's easy. You go to the path you downloaded the zip, extract it and copy `filesearch` to `/usr/bin` by running:
+`sudo cp ./filesearch /usr/bin`
+or for limited users, you can install it for **your user only**:
+```
+mkdir ~/.local ~/.local/bin
+cp ./filesearch ~/.local/bin
+echo 'export PATH="$PATH:~/.local/bin"' >> ~/.bashrc
+source ~/.bashrc
+```
 
-2. Extract `filesearch.exe` to your downloads folder, or wherever you prefer.
+### macOS
+Installation is... **_less easy_** but still possible. You can not directly write to `/bin` or `/usr/bin` even _with_ sudo! So, to install **system-wide** we need to do some more trickery. First extract the binary to your Downloads folder, then run these commands:
+```
+sudo mkdir -p /usr/local/filesearchbin
+sudo chmod 755 /usr/local/filesearchbin
+echo "/usr/local/filesearchbin" | sudo tee /etc/paths.d/filesearchbin
+sudo cp ./filesearch /usr/local/filesearchbin
+```
+That should do it. Probably. If not open an issue if I didn't already catch it. Same for any of these installation guides... Aannyway to install it for _just_ your user, no one else, incase you can't use sudo, run:
+```
+mkdir ~/filesearchbin
+echo 'export PATH="$PATH:~/filesearchbin"' >> ~/.zshrc
+source ~/.zshrc
+```
 
-3. Move `filesearch.exe` from where you extracted it to the "System32" folder (`C:\Windows\System32`). This will need administrator priviledges to do.
+### Windows
+Ah... Windows... You either love it or hate it, but for me it's both. Fight me.
+To install Filesearch system-wide for Windows, first make sure you extract the binary to your downloads folder. After that, just:
 
-4. Open a command prompt (Press `Win + R`, type `cmd`, and press Enter).
+1. Click on the Start Button (<img width="16" height="16" alt="" src="https://github.com/user-attachments/assets/322977d9-15cc-4f49-a608-c6b1de629689" />)
+2. Search "cmd" and click 'Run as administrator'
+<img width="650" height="550" alt="image" src="https://github.com/user-attachments/assets/f55d5452-9208-49e1-95dd-b3d1b9f16ca3" />
 
-5. In the command prompt, type the following command to run the application for file search:
+If prompted, press 'Yes' or enter your password.
+3. Navigate to your Downloads folder by using `cd` followed by your user folder's path. for example, my folder would be `C:\\Users\\Emmet\\`. Then you just go to the downloads folder, or wherever you extracted the binary to.
+4. Run the following commands:
+```batch
+cp .\\filesearch.exe C:\\Windows\\System32\\
+filesearch
+```
+This will install the binary and verify it runs.
 
-   ```
-   filesearch.exe /FM "filename" [directory]
-   ```
+If you instead want it to be just for your user, instead run:
+```batch
+mkdir "%LOCALAPPDATA%\\Programs\\FilesearchBin"
+move ".\\filesearch.exe" "%LOCALAPPDATA%\\Programs\\FilesearchBin"
+setx PATH "%PATH%;%LOCALAPPDATA%\\Programs\\FilesearchBin"
+```
 
-   To start a subdirectory search:
-
-   ```
-   filesearch.exe /SDM "subdirectory" [directory]
-   ```
-
-   Or to find both:
-
-   ```
-   filesearch.exe /BOTH "query" [directory]
-   ```
-
-   Replace "filename" or "subdirectory" with the name of the file or subdirectory you want to search for, and optionally specify the starting directory for the search (default is the current directory).
-### Linux:
-
-1. Download the version you want for Linux from the [releases](https://github.com/EndrDragon44/FileSearch/releases) page.
-
-2. Extract the zip folder and extract the `filesearch` binary to your Downloads folder or wherever you prefer.
-
-3. Open a terminal and navigate to the folder you extracted to. run `chmod a+rx ./filesearch` to allow every user permissions to read and execute, then run `sudo mv ./filesearch /bin` and authenticate to globally install filesearch. 
-
-4. In the terminal, type the following command to run the application for file search:
-
-   ```
-   ./filesearch /FM "filename" [directory]
-   ```
-
-   To start a subdirectory search:
-
-   ```
-   ./filesearch /SDM "subdirectory" [directory]
-   ```
-   
-   Or to find both:
-
-   ```
-   filesearch /BOTH "query" [directory]
-   ```
-
-   Replace "filename" or "subdirectory" with the name of the file or subdirectory you want to search for, and optionally specify the starting directory for the search (default is the current directory).
-### Linux:
-
-1. Download the version you want for macOS from the [releases](https://github.com/EndrDragon44/FileSearch/releases) page.
-
-2. Extract the zip folder and extract the `filesearch` binary to your Downloads folder or wherever you prefer.
-
-3. Open a terminal and navigate to the folder you extracted to. run `chmod a+rx ./filesearch` to allow every user permissions to read and execute, then run `sudo mv ./filesearch /bin` and authenticate to globally install filesearch. 
-
-4. In the terminal, type the following command to run the application for file search:
-
-   ```
-   ./filesearch /FM "filename" [directory]
-   ```
-
-   To start a subdirectory search:
-
-   ```
-   ./filesearch /SDM "subdirectory" [directory]
-   ```
-   
-   Or to find both:
-
-   ```
-   filesearch /BOTH "query" [directory]
-   ```
-
-   Replace "filename" or "subdirectory" with the name of the file or subdirectory you want to search for, and optionally specify the starting directory for the search (default is the current directory).
-
-## Notes:
-### Errors
-Errors that appear from threads that state it has insufficent permissions, or that the directory it tried to access was invalid, indicate that you do not have access to that directory. To try fixing this, you can run the command using administrative rights by running it in an elevated command prompt in Windows, or by running it using `sudo` on Linux and macOS like so: `sudo filesearch [mode] "query" [directory]`
-### Limits
-When on Windows and use WSL to run the Linux version, running a search in `/` or `/mnt/` may produce many permission errors, regardless of how you run it. This is caused by how WSL mounts Windows drive letters (C:\, D:\, etc) to the container, and how NTFS permssions for system files and directories are enforced to WSL even when read with superuser. The only way to avoid the log clutter from Windows drives is either to unmount the drives with `sudo umount /mnt/[ltr] -f` and try again, or just use the Windows version to access Windows filesystems.
-
-## Contribution
-
-This project welcomes contributions from macOS and Linux users who can help test and build versions of the application for these platforms. If you are interested in contributing, please follow the steps mentioned in the "Contribution" section of this README.
-
-We do have a contributer for ARM (M-Series) builds for macOS!
+> Note: If the method you use includes adding the binary path to your system **or** user PATH variable, the shell MUST be restarted for it to take effect. This does NOT apply if you copied the binary to System32 on Windows (because it's already in PATH). You can also just run your shell again. For example, if you use `fish` as your shell and just added filesearch to your path, just run `fish` to open a new instance and it will use the new path. This isn't recommended, but it is an alternative for those like me who are lazy sometimes. 
 
 ## Attribution
 
@@ -136,5 +119,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 
 If you have any questions or need further assistance, feel free to open an issue in the repository.
-
-We appreciate your support in making this application accessible and functional on multiple platforms! Your contributions will be acknowledged and will help improve the project for all users. Happy searching!
