@@ -53,7 +53,7 @@ To demonstrate how simple it is to use this, I came up with 12 examples in four 
 - filesearch /FM *-stable.tar.gz .
 - filesearch /FM dirent.h /.
 
-   That dirent.h one was something I struggled with when making the second version of filesearch, back when I used C. I wanted to make a version for Linux and this was the one thing keeping me from doing so when building with WSL, and don't forget this was around 2021-22...
+That dirent.h one was something I struggled with when making the second version of filesearch, back when I used C. I wanted to make a version for Linux and this was the one thing keeping me from doing so when building with WSL, and don't forget this was around 2021-22...
 
 
 ## Installation
