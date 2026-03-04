@@ -13,15 +13,15 @@ This is a command-line file search application originally written in C, now writ
 
 |OS  | 64-bit | 32-bit | ARM64 |
 |-|-|-|-|
-|Windows|Yes|Yes|Yes
+|Windows|Yes|Yes|Yes|
 |macOS|Yes (Intel)|Not Planned|Yes (Silicon)|
-|Linux|Yes |Yes|Yes
+|Linux|Yes|Yes|Yes|
 
 </div>
 
 Windows, macOS and Linux each have their very own version of Filesearch - not to mention it's also built for different CPU architectures, too! So whether you're using Windows 7 on a 32-bit CPU, macOS 26 on a M5 Mac Mini, or Damn Small Linux on a MacBook Pro from 2009, it'll run.
 
-The minimum version of Windows needed to run either the 32-bit or 64-bit is Windows 7 SP1. I am actively working on fixing that and will update the existing files silently. You'll know because this message will be gone - you aren't seeing things... or are you? :) I am—
+The minimum version of Windows needed to run either the 32-bit or 64-bit is Windows 7 SP1. I am actively working on fixing that and will update the existing files silently. You'll know because this message will be gone - you aren't seeing things... or are you? :) I am— what was that? O.O
 
 
 ## Features
@@ -52,10 +52,11 @@ To demonstrate how simple it is to use this, I came up with 12 examples in four 
 - filesearch -d * C:\\Users\\
 - filesearch /FM *-stable.tar.gz .
 - filesearch /FM dirent.h /.
+  That dirent.h one was something I struggled with when making the second version of filesearch, back when I used C. I wanted to make a version for Linux and this was the one thing keeping me from doing so when building with WSL, and don't forget this was around 2021-22...
 
 
 ## Installation
-Installation is simple. You copy the binary you download to somewhere in your PATH. This could be a custom folder you _add_ to PATH yourself, or a system folder for executables. I prefer the latter myself. Heres how to do it:
+Installation is fairly simple. You copy the binary you download to somewhere in your PATH. This could be a custom folder you _add_ to PATH yourself, or a system folder for executables. I prefer the latter myself. Heres how to do it:
 ### Linux
 On Linux it's easy. You go to the path you downloaded the zip, extract it and copy `filesearch` to `/usr/bin` by running:
 `sudo cp ./filesearch /usr/bin`
@@ -110,7 +111,10 @@ setx PATH "%PATH%;%LOCALAPPDATA%\\Programs\\FilesearchBin"
 
 ## Attribution
 
-Contributors who help test and build versions for macOS and Linux will be credited for their contributions in this README and the project's GitHub repository.
+Contributors who help test and build versions for macOS and Linux will be credited for their contributions at the top and right here:
+
+### @nreef12 — macOS for ARM64 build
+
 
 ## License
 
