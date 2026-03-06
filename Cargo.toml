@@ -2,13 +2,12 @@
 name = "filesearch-gui"
 version = "1.0.0"
 authors = ["EndrDragon44", "nreef12", "caden_tm"]
-edition.workspace = true
 
 repository = "https://github.com/endrdragon44/filesearch"
 
 
 [dependencies]
-ribir = {path = "./ribir"}
+ribir = {path = "./gui-library/ribir"}
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 dirs = "6"
 walkdir = "2"

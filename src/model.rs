@@ -1,7 +1,9 @@
 // model.rs
 // GUI front-end. communicates with core.rs, the engine.
 use crate::core::{SearchEngine, SearchConfig, SearchMode};
-use ribir::*;
+extern crate ribir;
+//use ribir::prelude::*;
+//use ribir::*;
 
 pub fn run_gui() {
   let FSwindow = fn_widget! {
@@ -16,4 +18,14 @@ pub fn run_gui() {
     }
   };
   App::run(FSwindow);
+}
+
+
+
+pub fn messageBox(){
+ // can be called by anything to make a popup appear
+ //
+
+
+
 }

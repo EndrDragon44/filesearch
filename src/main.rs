@@ -1,8 +1,9 @@
 mod core;
 mod model;
-use ribir::prelude::*;
+
 use crate::core::{SearchEngine, SearchConfig, SearchMode}; // for /CLI or -c
 use std::env;
+use std::result::Result;
 // main.rs
 // RECOMMEND USE CARGO 1.88! (sudo apt install rustc-1.88, cargo-1.88)
 // or use 'rustup default 1.88' or 1.89 if unavalible.
@@ -33,9 +34,8 @@ fn main() {
     }
 
     // Default: launch GUI
-    if let Err(e) = model::run_gui() {
-        eprintln!("GUI error: {}", e);
-    }
+    model::run_gui();
+
 }
 
 fn print_help() {
