@@ -1,18 +1,19 @@
 [package]
-name = "filesearch-gui-working-backup-Dec18"
-version = "0.1.0"
-edition = "2021"
-authors = ["EndrDragon44"]
+name = "filesearch-gui"
+version = "1.0.0"
+authors = ["EndrDragon44", "nreef12", "caden_tm"]
+edition.workspace = true
+
+repository = "https://github.com/endrdragon44/filesearch"
+
 
 [dependencies]
-iced = { version = "0.14", features = ["tokio"] }
+ribir = {path = "./ribir"}
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
-dirs = "5"
+dirs = "6"
 walkdir = "2"
 fuzzy-matcher = "0.3"
 regex = "1"
 anyhow = "1"
-rfd = "0.9"
-notify = "5"
-
-// add targets for macos, intel AND arm64, windows x86 x64 and arm64, and linux x86,, x64, and arm64
+rfd = "0.17.2"
+notify = "8.2"

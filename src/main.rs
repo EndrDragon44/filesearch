@@ -1,5 +1,6 @@
 mod core;
 mod model;
+use ribir::prelude::*;
 use crate::core::{SearchEngine, SearchConfig, SearchMode}; // for /CLI or -c
 use std::env;
 // main.rs
@@ -38,8 +39,29 @@ fn main() {
 }
 
 fn print_help() {
+        let mut os = std::env::consts::OS;
+        let mut arch = std::env::consts::ARCH;
+        if arch == "aarch64" { //architechure aliasing (for an average user)
+            if os == "macos" {
+                arch = "M-series (ARM64)";
+            } else {
+                arch = "ARM64";
+            }
+        } else if arch == "x86_64" {
+            arch = "x64";
+        }
+        // os name prettify
+        if os == "macos" {
+                os = "macOS";
+        } else if os == "linux" {
+                os = "Linux"
+        } else if os == "windows" {
+                os = "Windows";
+        }
+
         println!("Filesearch - Revised");
         println!("Created by EndrDragon44");
+        println!("{} {}",arch, os);
         println!("");
         println!("USAGE:");
         println!("  filesearch   Open the GUI Version");

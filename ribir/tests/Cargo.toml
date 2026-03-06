@@ -1,0 +1,65 @@
+[package]
+authors.workspace = true
+categories.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+license.workspace = true
+name = "tests"
+publish = false
+readme.workspace = true
+repository = "https://github.com/RibirX/Ribir/tests"
+version.workspace = true
+
+[dev-dependencies]
+paste.workspace = true
+ribir = {path = "../ribir", features = ["material", "widgets"]}
+ribir_dev_helper = {path = "../dev-helper"}
+ribir_geom = {path = "../geom"}
+ribir_text = {path = "../text"}
+winit.workspace = true
+criterion = "0.5.1"
+todos = {path = "../examples/todos"}
+counter = {path = "../examples/counter"}
+messages = {path = "../examples/messages"}
+storybook = {path = "../examples/storybook"}
+wordle_game = {path = "../examples/wordle_game"}
+
+[[test]]
+name = "include_svg"
+path = "include_svg_test.rs"
+
+[[test]]
+name = "rdl_macro_test"
+path = "rdl_macro_test.rs"
+
+[[test]]
+name = "child_template_derive"
+path = "child_template_derive_test.rs"
+
+[[test]]
+name = "declare_builder"
+path = "declare_builder_test.rs"
+
+[[test]]
+name = "path_child"
+path = "path_child_test.rs"
+
+
+[[bench]]
+name = "text_bench"
+harness = false
+
+[[bench]]
+name = "example_bench"
+harness = false
+
+[[bench]]
+name = "core_bench"
+harness = false
+
+[[bench]]
+name = "widgets_bench"
+harness = false

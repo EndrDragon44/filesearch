@@ -1,0 +1,6 @@
+error: Found argument '--keep-going' which wasn't expected, or isn't valid in this context
+
+USAGE:
+    cargo check --manifest-path <PATH> --message-format <FMT>... --workspace
+
+For more information try --help

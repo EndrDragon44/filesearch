@@ -1,0 +1,37 @@
+[package]
+authors.workspace = true
+categories.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+license.workspace = true
+name = "ribir_painter"
+readme.workspace = true
+repository = "https://github.com/RibirX/Ribir/painter"
+version.workspace = true
+
+[dependencies]
+bitflags = "2.3.0"
+image = {workspace = true, optional = true}
+log.workspace = true
+lyon_algorithms = {version = "1.0.3", features = ["serialization"]}
+lyon_tessellation = {version = "1.0.3", features = ["serialization"], optional = true}
+material-color-utilities-rs = {workspace = true}
+rctree.workspace = true
+ribir_algo = {path = "../algo", version = "0.4.0-alpha.6" }
+ribir_geom = {path = "../geom", version = "0.4.0-alpha.6" }
+serde = {version = "1.0", features = ["derive"]}
+serde_json.workspace = true
+tiny-skia-path = {workspace = true}
+usvg.workspace = true
+zerocopy = {workspace = true, optional = true, features = ["derive"]}
+ordered-float = {workspace = true, features = ["serde"]}
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+getrandom.workspace = true
+
+[features]
+png = ["image/png"]
+tessellation = ["lyon_tessellation", "zerocopy"]
