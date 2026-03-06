@@ -1,0 +1,34 @@
+[package]
+authors.workspace = true
+categories.workspace = true
+description.workspace = true
+documentation.workspace = true
+edition.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+license.workspace = true
+name = "ribir_gpu"
+readme.workspace = true
+repository = "https://github.com/RibirX/Ribir/gpu"
+version.workspace = true
+
+[dependencies]
+ahash.workspace = true
+futures = {workspace = true, optional = true}
+guillotiere.workspace = true
+log.workspace = true
+rayon.workspace = true
+ribir_algo = {path = "../algo", version = "0.4.0-alpha.6" }
+ribir_geom = {path = "../geom", version = "0.4.0-alpha.6" }
+ribir_painter = {path = "../painter", features = ["tessellation"], version = "0.4.0-alpha.6" }
+slab = "0.4.9"
+wgpu = {workspace = true, optional = true}
+zerocopy = {workspace=true, features = ["derive"]}
+
+[dev-dependencies]
+paste.workspace = true
+ribir_dev_helper = {path = "../dev-helper"}
+
+[features]
+default = ["wgpu"]
+wgpu = ["dep:wgpu", "futures"]
